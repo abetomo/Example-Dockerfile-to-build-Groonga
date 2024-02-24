@@ -1,1 +1,47 @@
 # Example-Dockerfile-to-build-Groonga
+
+## Command Examples
+
+### Fetch Groonga source
+
+```
+git clone --recursive https://github.com/groonga/groonga.git
+```
+
+### Build a Docker image
+
+```
+docker image build -t groonga_build .
+```
+
+### CMake
+
+```
+docker container run -it --rm \
+  -v $PWD/groonga:/build \
+  -v $PWD/groonga.build:/groonga.build \
+  groonga_build \
+  cmake -B /groonga.build -S . -DCMAKE_BUILD_TYPE=Debug
+```
+
+### Build
+
+```
+docker container run -it --rm \
+  -v $PWD/groonga:/build \
+  -v $PWD/groonga.build:/groonga.build \
+  groonga_build \
+  cmake --build /groonga.build
+```
+
+### Run tests
+
+```
+docker container run -it --rm \
+  -v $PWD/groonga:/build \
+  -v $PWD/groonga.build:/groonga.build \
+  --shm-size=4g \
+  -e BUILD_DIR=/groonga.build/test/command \
+  groonga_build \
+  ./test/command/run-test.sh
+```
