@@ -1,12 +1,12 @@
 # Example-Dockerfile-to-build-Groonga
 
-## Command Examples
-
-### Fetch Groonga source
+## Fetch Groonga source
 
 ```
 git clone --recursive https://github.com/groonga/groonga.git
 ```
+
+## Build and Test
 
 ### Build a Docker image
 
@@ -45,3 +45,31 @@ docker container run -it --rm \
   groonga_build \
   ./test/command/run-test.sh
 ```
+
+## Build documentation
+
+```
+docker image build -t groonga_docs -f ./doc.Dockerfile .
+```
+
+### CMake
+
+```
+docker container run -it --rm \
+  -v $PWD/groonga:/docs \
+  -v $PWD/groonga.docs:/groonga.docs \
+  groonga_docs \
+  cmake -B /groonga.docs -S . --preset=doc
+```
+
+### Build
+
+```
+docker container run -it --rm \
+  -v $PWD/groonga:/docs \
+  -v $PWD/groonga.docs:/groonga.docs \
+  groonga_docs \
+  cmake --build /groonga.docs
+```
+
+Generated in `./groonga.docs/doc/{en,ja}/html/`.
