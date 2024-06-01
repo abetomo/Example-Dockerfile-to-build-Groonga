@@ -73,3 +73,10 @@ docker container run -it --rm \
 ```
 
 Generated in `./groonga.docs/doc/{en,ja}/html/`.
+
+## Use gdb in Docker
+
+* `--cap-add=SYS_PTRACE`
+  * https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities
+* `--security-opt="seccomp=unconfined"`
+  * https://docs.docker.com/engine/security/seccomp/
