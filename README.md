@@ -74,6 +74,18 @@ docker container run -it --rm \
 
 Generated in `./groonga.docs/doc/{en,ja}/html/`.
 
+### Run `ninja doc_update_examples`
+
+```
+docker container run -it --rm \
+  -v $PWD/groonga:/docs \
+  -v $PWD/groonga.docs:/groonga.docs \
+  groonga_docs \
+  ninja doc_update_examples -C /groonga.docs
+```
+
+Update the run results of the command examples.
+
 ## Use gdb in Docker
 
 * `--cap-add=SYS_PTRACE`
